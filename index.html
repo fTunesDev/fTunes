@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fart Tunes</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Press Start 2P', cursive;
+            background-color: #222;
+            color: #82813d;
+            text-align: center;
+            padding: 50px;
+            background-image: url('https://www.pngkit.com/png/full/58-589061_fart-cloud-png.png');
+            background-repeat: no-repeat;
+            background-position: center top;
+            background-size: 300px;
+            overflow: hidden;
+            background-attachment: fixed;
+        }
+
+        h1 {
+            color: #ffea00;
+            font-size: 50px;
+            text-transform: uppercase;
+            text-shadow: 3px 3px 10px rgba(255, 0, 0, 0.7);
+            margin-bottom: 40px;
+        }
+
+        .keyboard-row {
+            display: flex;
+            justify-content: center;
+            gap: 0;
+        }
+
+        .keyboard-button {
+            padding: 60px 0;
+            background-color: white;
+            color: black;
+            border: 1px solid #bbb;
+            font-size: 18px;
+            width: 60px;
+            height: 200px;
+            cursor: pointer;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            border-radius: 0 0 5px 5px;
+            position: relative;
+        }
+
+        .keyboard-button:hover {
+            background-color: #f5f5f5;
+            transform: scale(1.1);
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .keyboard-button:active {
+            transform: scale(0.95);
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .controls {
+            margin-top: 40px;
+            max-width: 300px;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: left;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 15px;
+        }
+
+        label {
+            font-size: 18px;
+            color: #ffea00;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            margin-bottom: 15px;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 20px;
+            margin: 10px;
+            background-color: #ff8c00;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+
+        button:hover {
+            background-color: #ff6f00;
+            transform: scale(1.1);
+        }
+
+        button:active {
+            transform: scale(0.9);
+        }
+
+        .fart-cloud {
+            position: absolute;
+            top: 60px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 100px;
+            background-image: url('https://www.pngkit.com/png/full/58-589061_fart-cloud-png.png');
+            background-size: cover;
+            animation: fartCloudAnimation 2s infinite;
+        }
+
+        @keyframes fartCloudAnimation {
+            0% {
+                transform: scale(1) rotate(0deg);
+                opacity: 0.8;
+            }
+            50% {
+                transform: scale(1.3) rotate(20deg);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1) rotate(0deg);
+                opacity: 0.8;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Fart Tunes</h1>
+
+    <div class="fart-cloud"></div>
+
+    <div class="keyboard-row">
+        <button id="playFart1" class="keyboard-button">1</button>
+        <button id="playFart2" class="keyboard-button">2</button>
+        <button id="playFart3" class="keyboard-button">3</button>
+        <button id="playFart4" class="keyboard-button">4</button>
+        <button id="playFart5" class="keyboard-button">5</button>
+        <button id="playFart6" class="keyboard-button">6</button>
+        <button id="playFart7" class="keyboard-button">7</button>
+        <button id="playFart8" class="keyboard-button">8</button>
+    </div>
+
+    <div class="controls">
+        <h3>Sound Controls</h3>
+        <label for="pitchControl">Pitch (detune):</label>
+        <input type="range" id="pitchControl" min="-1200" max="1200" value="0">
+        <br>
+        <label for="tempoControl">Tempo (speed):</label>
+        <input type="range" id="tempoControl" min="0.5" max="2" step="0.1" value="1">
+        <br>
+        <label for="reverbControl">Reverb (dry/wet):</label>
+        <input type="range" id="reverbControl" min="0" max="1" step="0.01" value="0">
+        <br>
+        <label for="delayControl">Delay (time):</label>
+        <input type="range" id="delayControl" min="0" max="2" step="0.1" value="0">
+        <br>
+        <label for="distortionControl">Distortion:</label>
+        <input type="range" id="distortionControl" min="0" max="1" step="0.01" value="0">
+        <br>
+        <label for="panControl">Stereo Panning:</label>
+        <input type="range" id="panControl" min="-1" max="1" step="0.1" value="0">
+    </div>
+
+    <script>
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        
+        const soundFiles = [
+            './sounds/fart-01.wav',
+            './sounds/fart-02.wav',
+            './sounds/fart-03.wav',
+            './sounds/fart-04.wav',
+            './sounds/fart-05.wav',
+            './sounds/fart-06.wav',
+            './sounds/fart-07.wav',
+            './sounds/fart-08.wav'
+        ];
+
+        const soundBuffers = [];
+        let isLoaded = false;
+
+        soundFiles.forEach((file, index) => {
+            fetch(file)
+                .then(response => response.arrayBuffer())
+                .then(data => audioContext.decodeAudioData(data))
+                .then(buffer => {
+                    soundBuffers[index] = buffer;
+                    if (soundBuffers.length === soundFiles.length) {
+                        isLoaded = true;
+                        console.log('All sounds loaded');
+                    }
+                })
+                .catch(err => console.error('Error loading fart sound:', err));
+        });
+
+        function playSoundWithEffects(index) {
+            if (!isLoaded || !soundBuffers[index]) {
+                console.error('Fart sound not loaded yet');
+                return;
+            }
+
+            console.log(`Playing sound ${index + 1}`);
+
+            const source = audioContext.createBufferSource();
+            source.buffer = soundBuffers[index];
+
+            const pitchValue = document.getElementById('pitchControl').value;
+            source.detune.setValueAtTime(pitchValue, audioContext.currentTime);
+
+            const tempoValue = document.getElementById('tempoControl').value;
+            source.playbackRate.setValueAtTime(tempoValue, audioContext.currentTime);
+
+            const reverbValue = document.getElementById('reverbControl').value;
+            const reverbNode = audioContext.createConvolver();
+            const reverbGain = audioContext.createGain();
+            reverbGain.gain.setValueAtTime(reverbValue, audioContext.currentTime);
+            source.connect(reverbNode);
+            reverbNode.connect(reverbGain);
+            reverbGain.connect(audioContext.destination);
+
+            const delayTime = document.getElementById('delayControl').value;
+            const delayNode = audioContext.createDelay();
+            delayNode.delayTime.setValueAtTime(delayTime, audioContext.currentTime);
+            source.connect(delayNode);
+            delayNode.connect(audioContext.destination);
+
+            const distortionValue = document.getElementById('distortionControl').value;
+            const distortionNode = audioContext.createWaveShaper();
+            const curve = new Float32Array(44100);
+            for (let i = 0; i < curve.length; i++) {
+                curve[i] = Math.sin(i / curve.length * Math.PI * distortionValue);
+            }
+            distortionNode.curve = curve;
+            distortionNode.oversample = '4x';
+            source.connect(distortionNode);
+            distortionNode.connect(audioContext.destination);
+
+            const panValue = document.getElementById('panControl').value;
+            const panNode = audioContext.createStereoPanner();
+            panNode.pan.setValueAtTime(panValue, audioContext.currentTime);
+            source.connect(panNode);
+            panNode.connect(audioContext.destination);
+
+            source.start();
+        }
+
+        for (let i = 0; i < 8; i++) {
+            const button = document.getElementById(`playFart${i + 1}`);
+            button.addEventListener('click', () => playSoundWithEffects(i));
+        }
+    </script>
+
+</body>
+</html>
