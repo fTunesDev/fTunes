@@ -252,6 +252,14 @@
             source.start();
         }
 
+        // Adding keyboard event listener for number keys (1-8)
+        document.addEventListener('keydown', (e) => {
+            if (e.key >= 1 && e.key <= 8) {
+                const index = parseInt(e.key) - 1;
+                playSoundWithEffects(index);
+            }
+        });
+
         for (let i = 0; i < 8; i++) {
             const button = document.getElementById(`playFart${i + 1}`);
             button.addEventListener('click', () => playSoundWithEffects(i));
