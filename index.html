@@ -12,8 +12,7 @@
             background-color: #222;
             color: #82813d;
             text-align: center;
-            padding: 50px;
-            overflow: hidden;
+            padding: 50px;	
         }
 
         h1 {
@@ -61,6 +60,7 @@
             max-width: 300px;
             margin-left: auto;
             margin-right: auto;
+	    margin-bottom: 15px;
             text-align: left;
             background-color: rgba(0, 0, 0, 0.5);
             padding: 20px;
@@ -135,7 +135,7 @@
         <label for="panControl">Stereo Panning:</label>
         <input type="range" id="panControl" min="-1" max="1" step="0.1" value="0">
     </div>
-
+    <img src="images/logo.png" style="width : 100px; height: auto;" >
     <script>
         const audioContext = new (window.AudioContext || window.webkitAudioContext)();
         
@@ -231,6 +231,5 @@
             button.addEventListener('click', () => playSoundWithEffects(i));
         }
     </script>
-
 </body>
 </html>
